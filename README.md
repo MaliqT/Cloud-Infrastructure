@@ -34,3 +34,35 @@ This repository stores my learning about cloud infrastructure using AWS.
 * echo "Hello, World!" | sudo tee /var/www/html/index.html
 
 That's my first project getting started on learning cloud infrastructure
+
+# Learning
+Cloud-Infrastructure in today's modern use of software development allows the ability for one to control a remote instance programmatically. This project is to serve as my own learning about cloud-infrastructure.
+So far, I'm able to start and stop an instance by using aws ec2 start-instances --instance-ids "instanceID" and aws ec2 stop-instances --instance-ids "instanceID" and this can be done without being connected to the instance itself
+with ssh -i "MyKeyPair.pem" ec2-user@instance-ip. 
+
+My learning will focus on a few milestones that I want to complete. These are as follows:
+## Compute:
+* Use EC2 instances programmatically via the AWS CLI
+* Deploy and scale containers using AWS Elastic Beanstalk or with Docker
+
+## Storage:
+* S3: Storing static files
+* EBS: Attach storage volumes to EC2
+* Host a static website on S3
+
+## Networking:
+* Build and configure networks
+* Create virtual private clouds (VPCs)
+* Configure Subnets, Route Tables, and Gateways
+* Secure EC2 instances with Security Groups
+
+## Infrastructure as Code
+* Optional: Write Terraform scripts to spin up resources
+* Deploy an EC2 + S3 setup using Terraform
+
+
+
+# What's Next?
+
+## Compute
+In this section, I'm going to learn how to programmatically control my EC2 instances through AWS CLI by itself and deploy containers using Docker.
