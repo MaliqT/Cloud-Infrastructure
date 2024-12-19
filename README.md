@@ -33,12 +33,7 @@ This repository stores my learning about cloud infrastructure using AWS.
 * sudo systemctl enable httpd
 * echo "Hello, World!" | sudo tee /var/www/html/index.html
 
-That's my first project getting started on learning cloud infrastructure
-
-# Learning
-Cloud-Infrastructure in today's modern use of software development allows the ability for one to control a remote instance programmatically. This project is to serve as my own learning about cloud-infrastructure.
-So far, I'm able to start and stop an instance by using aws ec2 start-instances --instance-ids "instanceID" and aws ec2 stop-instances --instance-ids "instanceID" and this can be done without being connected to the instance itself
-with ssh -i "MyKeyPair.pem" ec2-user@instance-ip. 
+That's my first project getting started on learning cloud infrastructure 
 
 My learning will focus on a few milestones that I want to complete. These are as follows:
 ## Compute:
@@ -66,3 +61,15 @@ My learning will focus on a few milestones that I want to complete. These are as
 
 ## Compute
 In this section, I'm going to learn how to programmatically control my EC2 instances through AWS CLI by itself and deploy containers using Docker.
+
+# Learning
+This section will always be updated as I progress. 
+
+Cloud-Infrastructure in today's modern use of software development allows the ability for one to control a remote instance programmatically. This project is to serve as my own learning about cloud-infrastructure.
+So far, I'm able to start and stop an instance by using aws ec2 start-instances --instance-ids "instanceID" and aws ec2 stop-instances --instance-ids "instanceID" and this can be done without being connected to the instance itself
+with ssh -i "MyKeyPair.pem" ec2-user@instance-ip.
+
+## Notes to self:
+* You can start and stop instances programmatically
+* Every time an instance starts, a new ipv4 address is associated. Instead of having to connect and type this new ipv4 address every time, configure an Elastic IP address associated to the EC2 instance itself,
+that way you only use the Elastic IP and it will always connect to the instance.
