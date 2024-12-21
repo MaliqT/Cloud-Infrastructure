@@ -9,6 +9,7 @@ This repository stores my learning about cloud infrastructure using AWS.
 * VS Code
 * WSL
 * EC2 Server instances
+* Elastic Beanstalk
 
 ## Steps Creating First Project:
 * Create an AWS account and install AWS CLI through VS Code WSL.
@@ -60,7 +61,25 @@ My learning will focus on a few milestones that I want to complete. These are as
 # What's Next?
 
 ## Compute
-In this section, I'm going to learn how to programmatically control my EC2 instances through AWS CLI by itself and deploy containers using Docker.
+In this section, I'm going to learn how to programmatically control my EC2 instances through AWS CLI by itself as well as create and deploy containers and environments using Docker.
+New accounts after October 1st, 2024 will now require the use of launch templates in order to create an environment and deploy it. The biggest challenge here is understanding how these launch templates work.
+The launch template needs to be inside a .ebextensions directory named anything. It needs to have the .config file type and in YAML or JSON format writting. Create one following this link: https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environments-cfg-autoscaling-launch-templates.html
+All of this needs to be inside the project application directory. Trying to create an environment without first initializing a launch template will result in a failed creation of the environment and an error will be thrown saying "Auto Scaling Group does not exist" or something along those lines.
+Then using Elastic Beanstalk CLI through WSL in VS Code, run "eb init" to initialize the first instance of an application in Elastic Beanstalk, go through the steps and select those that apply and then create an environment.
+Create an environment using "eb create environment-name-here" which will then process the launch template config file created. I wrote the following content inside a launch template file:
+
+option_settings:
+  aws:autoscaling:launchconfiguration:
+    ImageId: "ami-myimageid"
+    InstanceType: "t2.micro"
+    EC2KeyName: "MyKeyPair"
+    DisableIMDSv1: true
+    RootVolumeType: "gp3"
+
+This is what I wrote. In order for the creation of the environment to work, DisableIMDSv1 or RootVolumeType has to be involved in the file. At least one of those options or a few others that aren't mentioned here. The creation of the environment worked, however, with errors. Regardless, I'll work on those errors later.
+
+### Why use Elastic Beanstalk to handle EC2 instances?
+Elastic Beanstalk allows for the user to to primarily focus on the application code. Since EB provisions its own EC2 instance, this means EB handles and manages features like scaling, load balancing, health monitoring, etc.
 
 # Learning
 This section will always be updated as I progress. 
@@ -68,6 +87,9 @@ This section will always be updated as I progress.
 Cloud-Infrastructure in today's modern use of software development allows the ability for one to control a remote instance programmatically. This project is to serve as my own learning about cloud-infrastructure.
 So far, I'm able to start and stop an instance by using aws ec2 start-instances --instance-ids "instanceID" and aws ec2 stop-instances --instance-ids "instanceID" and this can be done without being connected to the instance itself
 with ssh -i "MyKeyPair.pem" ec2-user@instance-ip.
+
+#### Using Elastic Beanstalk to manage EC2 Instances:
+My biggest challenge here was getting the launch template to work. I didn't quite understand how to create one simple because reading through the documents on AWS about Launch Templates, it didn't really show or say how this is configured or setup until reading about 4-5 articles about it. Turns out, my issue was that I was initializing and creating EB inside my root directory and not in my application directory. So I created an entirely new directory and called it MyApp and inside that directory I ran "eb init" and set everything up, then I created the .ebextensions directory and the launch-template.config file and wrote the contents. And ran "eb create test-environment" and it finally worked, but there are still some errors that I need to figure out but the environment works. This means that my EC2 instance is completely handled by EB and I just need to provide the application code. 
 
 ## Notes to self:
 * You can start and stop instances programmatically
